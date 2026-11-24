@@ -47,17 +47,20 @@ select option{background:#1a0f3d}
 .empty{text-align:center;color:var(--mut);font-style:italic;padding:22px 8px;margin:0}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .pos{color:var(--ok)}.neg-t{color:var(--bad)}
+/* sélecteur d'équipes */
 .picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
 .pk-h{border:1px solid color-mix(in srgb,var(--c) 45%,transparent);border-radius:12px;padding:8px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 12%,transparent),transparent)}
 .pk-t{font-family:var(--disp);font-size:13px;color:var(--c);margin-bottom:6px;letter-spacing:.05em}
 .pk{display:flex;align-items:center;gap:8px;width:100%;margin-top:5px;text-align:left;background:#0e0a2899;font-size:12px}
 .pk small{margin-left:auto;color:var(--mut);font-family:var(--body);font-size:14px}
 .pk.on{border-color:var(--c);box-shadow:0 0 12px color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 20%,#0e0a28)}
+.pk-h{--dotc:var(--mut)}
 .dot{width:9px;height:9px;border-radius:50%;background:#4b4380;flex:none}
 .pk.assigned .dot{background:var(--blue)}
 .pk.running .dot{background:var(--bad);animation:pulse2 1s infinite}
 .pk.done .dot{background:var(--ok)}
 @keyframes pulse2{50%{box-shadow:0 0 8px var(--bad)}}
+/* numéros */
 .nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:8px}
 .num{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;aspect-ratio:1;padding:6px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#33237a,#120b34);border:2px solid var(--c,var(--line));color:var(--txt);transition:transform .2s,box-shadow .2s}
 .num b{font-family:var(--disp);font-size:22px;line-height:1.1}
@@ -68,6 +71,7 @@ select option{background:#1a0f3d}
 .num.hl{transform:scale(1.14);border-color:var(--gold);box-shadow:0 0 26px var(--gold)}
 .num:disabled{opacity:1;cursor:default}
 .num:hover:not(:disabled){transform:translateY(-3px);filter:none}
+/* arène */
 .arena-h{display:flex;align-items:center;gap:14px;border-left:3px solid var(--c);padding-left:12px;margin-bottom:14px}
 .arena-h .sg{font-size:34px;color:var(--c);text-shadow:0 0 14px var(--c)}
 .an{font-family:var(--disp);font-size:20px}
@@ -92,6 +96,7 @@ select option{background:#1a0f3d}
 .mcard.sealed{border-style:dashed;justify-content:center;color:var(--mut);font-style:italic;animation:none}
 @keyframes rev{from{opacity:0;transform:rotateX(80deg) translateY(10px)}to{opacity:1;transform:none}}
 .ctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;justify-content:center}
+/* points */
 .score{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .score .big{font-family:var(--disp);font-size:54px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
 .score .bd{display:flex;gap:8px;flex-wrap:wrap}
@@ -140,6 +145,7 @@ select option{background:#1a0f3d}
 .role-l{flex:0 0 108px;font-family:var(--disp);font-size:11px;color:var(--c);letter-spacing:.04em}
 .role-l.sub{color:var(--mut)}
 .roster .plr input[type=text]{flex:1 1 120px}
+/* classement */
 .houses{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:18px}
 .hcard{position:relative;border:1px solid var(--c);border-radius:14px;padding:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 22%,transparent),rgba(14,10,40,.78));box-shadow:0 0 calc(4px*var(--g)) var(--c);overflow:hidden}
 .hcard .rk{position:absolute;right:12px;top:6px;font-family:var(--disp);font-size:34px;color:color-mix(in srgb,var(--c) 70%,transparent)}
@@ -171,6 +177,7 @@ details.bes summary{cursor:pointer;font-family:var(--disp);font-size:14px;color:
 .bn h4{font-family:var(--disp);font-size:14px;margin:0 0 8px;color:var(--gold);font-weight:400}
 .bm{display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap}
 .bm input[type=text]{flex:1 1 160px}
+/* connexion */
 .ov{position:fixed;inset:0;z-index:30;background:rgba(5,3,20,.72);display:grid;place-items:center;padding:16px}
 .ov .box{width:min(440px,100%);background:#1a1146;border:1px solid var(--gold);border-radius:14px;padding:18px;box-shadow:0 0 40px #6d28d966}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#1e1250;border:1px solid var(--gold);color:var(--gold);padding:10px 18px;border-radius:10px;transition:.3s;text-align:center;max-width:90vw;z-index:20}
@@ -211,6 +218,8 @@ HOUSES.forEach(function(h){[1,2].forEach(function(i){TEAMS.push({id:h.id+'-'+i,h
 function T(id){for(var i=0;i<TEAMS.length;i++)if(TEAMS[i].id===id)return TEAMS[i];return TEAMS[0];}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 var app=document.getElementById('app');
+
+/* ---------- données (valeurs par défaut : placeholders) ---------- */
 function defCfg(){
   var counts=[1,2,1,3,2,1,2,1], nums=[];
   for(var n=1;n<=30;n++){
@@ -223,6 +232,12 @@ function defCfg(){
 }
 var cfg=defCfg(), st={dead:{},fights:{}}, log=[];
 function isObj(x){return x&&typeof x==='object'&&!Array.isArray(x);}
+function deepMerge(a,b){
+  var o={},k;
+  for(k in a)o[k]=a[k];
+  for(k in b){o[k]=(isObj(a[k])&&isObj(b[k]))?deepMerge(a[k],b[k]):b[k];}
+  return o;
+}
 function normCfg(d){
   var base=defCfg();
   d=d||{};
@@ -236,12 +251,17 @@ function isDead(id,i){var d=st.dead[id];return !!(d&&d[i]);}
 function deadCount(id){var c=0;for(var i=0;i<4;i++)if(isDead(id,i))c++;return c;}
 function calc(id){
   var k=0,a=0,nk=0;
-  log.forEach(function(e){if(e.team!==id)return;if(e.kind==='kill'){k+=+e.pts||0;nk++;}else a+=+e.pts||0;});
+  log.forEach(function(e){
+    if(e.team!==id)return;
+    if(e.kind==='kill'){k+=+e.pts||0;nk++;}else a+=+e.pts||0;
+  });
   var d=deadCount(id);
   return {kills:k,adj:a,nk:nk,dead:d,pen:d*PEN,total:k+a-d*PEN};
 }
 function numData(n){for(var i=0;i<cfg.numbers.length;i++)if(cfg.numbers[i].n===n)return cfg.numbers[i];return null;}
 function takenMap(){var m={};TEAMS.forEach(function(t){var f=fight(t.id);if(f.n)m[f.n]=t.id;});return m;}
+
+/* ---------- connexion au serveur (données partagées) ---------- */
 var isAdmin=false, mode='load', KEY='', rev=-1, skew=0, persistent=true, netErr=false;
 try{KEY=sessionStorage.getItem('pand-key')||'';}catch(e){}
 function nowS(){return Date.now()+skew;}
@@ -253,59 +273,464 @@ function apply(d){
   log=(Array.isArray(d.log)?d.log:[]).slice().sort(function(a,b){return (b.ts||0)-(a.ts||0);});
   persistent=d.persistent!==false;mode='live';render();
 }
-function poll(){if(document.hidden)return;fetch('/api/data'+(rev>=0?'?rev='+rev:''),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){apply(d);if(netErr){netErr=false;head();}}).catch(function(){if(!netErr){netErr=true;head();}});}
-function op(body){return fetch('/api/op',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':KEY},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});}).then(function(x){if(x.s===200)apply(x.j);else if(x.s===401){logout(true);toast('Session expirée : reconnectez-vous.');}else toast('Enregistrement impossible, réessayez.');}).catch(function(){toast('Serveur injoignable, réessayez.');});}
+function poll(){
+  if(document.hidden)return;
+  fetch('/api/data'+(rev>=0?'?rev='+rev:''),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+    apply(d);
+    if(netErr){netErr=false;head();}
+  }).catch(function(){if(!netErr){netErr=true;head();}});
+}
+function op(body){
+  return fetch('/api/op',{method:'POST',headers:{'Content-Type':'application/json','X-Admin-Key':KEY},body:JSON.stringify(body)})
+    .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
+    .then(function(x){
+      if(x.s===200)apply(x.j);
+      else if(x.s===401){logout(true);toast('Session expirée : reconnectez-vous.');}
+      else toast('Enregistrement impossible, réessayez.');
+    }).catch(function(){toast('Serveur injoignable, réessayez.');});
+}
 function patch(path,part){return op({t:'patch',doc:path==='pand/config'?'config':'state',part:part});}
 function addLog(o){return op({t:'addlog',entry:o});}
 function delLog(id){return op({t:'dellog',id:id});}
-function tryLogin(pw,done){fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})}).then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});}).then(function(x){done(x.s,x.j);}).catch(function(){done(0,{});});}
+function tryLogin(pw,done){
+  fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})})
+    .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
+    .then(function(x){done(x.s,x.j);}).catch(function(){done(0,{});});
+}
 function paintAdm(){var b=document.getElementById('adm');b.textContent=isAdmin?'Quitter le mode Ministère':'Accès Ministère';}
-function logout(silent){KEY='';try{sessionStorage.removeItem('pand-key');}catch(e){}isAdmin=false;paintAdm();render();if(!silent)toast('Mode Ministère désactivé.');}
-function boot(){paintAdm();render();if(KEY)tryLogin(KEY,function(s){if(s===200){isAdmin=true;paintAdm();render();}else{KEY='';try{sessionStorage.removeItem('pand-key');}catch(e){}}});poll();setInterval(poll,2500);}
+function logout(silent){
+  KEY='';try{sessionStorage.removeItem('pand-key');}catch(e){}
+  isAdmin=false;paintAdm();render();if(!silent)toast('Mode Ministère désactivé.');
+}
+function boot(){
+  paintAdm();render();
+  if(KEY)tryLogin(KEY,function(s){
+    if(s===200){isAdmin=true;paintAdm();render();}
+    else{KEY='';try{sessionStorage.removeItem('pand-key');}catch(e){}}
+  });
+  poll();setInterval(poll,2500);
+}
 var lg=document.getElementById('lg'),lgp=document.getElementById('lgp'),lgm=document.getElementById('lgm');
-function lgOpen(){lg.hidden=false;lgm.textContent='';lgp.value='';setTimeout(function(){lgp.focus();},50);}function lgClose(){lg.hidden=true;}
+function lgOpen(){lg.hidden=false;lgm.textContent='';lgp.value='';setTimeout(function(){lgp.focus();},50);}
+function lgClose(){lg.hidden=true;}
 document.getElementById('adm').addEventListener('click',function(){if(isAdmin)logout();else lgOpen();});
 document.getElementById('lgx').addEventListener('click',lgClose);
 lg.addEventListener('click',function(e){if(e.target===lg)lgClose();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!lg.hidden)lgClose();});
-function lgSubmit(){var pw=lgp.value;if(!pw)return;lgm.textContent='Vérification…';tryLogin(pw,function(s){if(s===200){KEY=pw;try{sessionStorage.setItem('pand-key',pw);}catch(e){}isAdmin=true;paintAdm();lgClose();render();toast('Mode Ministère activé.');}else if(s===401)lgm.textContent='Mot de passe incorrect.';else if(s===429)lgm.textContent='Trop de tentatives, réessayez dans quelques minutes.';else if(s===503)lgm.textContent='Aucun mot de passe n’est configuré sur le serveur (variable ADMIN_PASSWORD).';else lgm.textContent='Serveur injoignable.';});}
-document.getElementById('lgok').addEventListener('click',lgSubmit);lgp.addEventListener('keydown',function(e){if(e.key==='Enter')lgSubmit();});
-var AC=null, muted=false;try{muted=localStorage.getItem('pand-mute')==='1';}catch(e){}
-function actx(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC;}catch(e){return null;}}
-function tone(f,t0,d,v,type){var c=actx();if(!c)return;var o=c.createOscillator(),g=c.createGain(),t=c.currentTime+t0;o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+0.05);}
-function sfx(k,x){if(muted)return;try{if(k==='tick')tone(380+(x||0)*620,0,0.09,0.05,'triangle');if(k==='draw'){[392,494,587,784,988].forEach(function(f,i){tone(f,i*0.09,1.1,0.07,'sine');});tone(98,0,1.6,0.12,'sine');}if(k==='rev'){[262,330,392,523].forEach(function(f,i){tone(f,i*0.06,1.4,0.06,'triangle');});}if(k==='start'){tone(98,0,3.2,0.16,'sine');tone(196,0,2.4,0.07,'sine');tone(294,0,1.8,0.04,'sine');}if(k==='end'){tone(82,0,4,0.2,'sine');tone(164,0,3,0.09,'sine');tone(246,0,2.2,0.05,'sine');tone(82,0.9,3.4,0.16,'sine');}if(k==='kill'){tone(659,0,0.7,0.08,'sine');tone(988,0.1,0.9,0.07,'sine');}if(k==='dead'){tone(330,0,0.5,0.08,'triangle');tone(220,0.18,0.7,0.08,'triangle');tone(147,0.4,1,0.08,'triangle');}if(k==='click')tone(700,0,0.06,0.04,'sine');}catch(e){}}
-var sndBtn=document.getElementById('snd');function paintSnd(){sndBtn.textContent=muted?'♪ Son coupé':'♪ Son';}sndBtn.addEventListener('click',function(){muted=!muted;try{localStorage.setItem('pand-mute',muted?'1':'0');}catch(e){}paintSnd();if(!muted)sfx('click');});paintSnd();
-var page='tirage', sel=TEAMS[0].id, hl=null, drawing=false, armed=null, pending=false;var gonged={};
-function readHash(){var h=(location.hash||'').replace('#','');if(h==='tirage'||h==='points'||h==='classement'||h==='equipes')page=h;}readHash();window.addEventListener('hashchange',function(){readHash();render();});function go(p){if(location.hash==='#'+p){page=p;render();}else location.hash=p;}
-var toastT=null;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},3200);}function fmtD(ts){try{return new Date(ts).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';}}function sgn(n){return (n>0?'+':n<0?'−':'')+Math.abs(n);}
-function head(){var h='';if(mode!=='live')h+='<span class="chip role">'+(netErr?'Serveur injoignable…':'Chargement…')+'</span>';else if(isAdmin)h+='<span class="chip role">Mode Ministère</span>';else h+='<span class="chip role">Mode consultation</span>';if(mode==='live'&&netErr)h+='<span class="chip">Connexion perdue, données peut-être anciennes</span>';if(mode==='live'&&!persistent)h+='<span class="chip" style="border-color:var(--bad);color:var(--bad)">Aucun volume : données non sauvegardées</span>';TEAMS.forEach(function(t){var f=fight(t.id);if(f.status==='running'&&f.end){h+='<span class="chip live" role="button" tabindex="0" data-act="goteam" data-t="'+t.id+'" data-end="'+f.end+'" data-tot="'+(f.end-f.start)+'" style="--c:'+t.h.c+'"><b>'+esc(t.h.n)+' '+ROM[t.i-1]+'</b><span class="tm">--:--</span></span>';}});document.getElementById('status').innerHTML=h;Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){b.classList.toggle('on',b.getAttribute('data-p')===page);b.setAttribute('aria-current',b.getAttribute('data-p')===page?'page':'false');});}
-function picker(){return '<div class="picker">'+HOUSES.map(function(h){return '<div class="pk-h" style="--c:'+h.c+'"><div class="pk-t">'+h.s+' '+esc(h.n)+'</div>'+TEAMS.filter(function(t){return t.h===h;}).map(function(t){var f=fight(t.id);return '<button class="pk '+f.status+(t.id===sel?' on':'')+'" data-act="pick" data-t="'+t.id+'" aria-pressed="'+(t.id===sel)+'"><span class="dot"></span>'+esc(tname(t))+(f.n?'<small>N°'+f.n+'</small>':'')+'</button>';}).join('')+'</div>';}).join('')+'</div>';}
+function lgSubmit(){
+  var pw=lgp.value;if(!pw)return;
+  lgm.textContent='Vérification…';
+  tryLogin(pw,function(s){
+    if(s===200){KEY=pw;try{sessionStorage.setItem('pand-key',pw);}catch(e){}isAdmin=true;paintAdm();lgClose();render();toast('Mode Ministère activé.');}
+    else if(s===401)lgm.textContent='Mot de passe incorrect.';
+    else if(s===429)lgm.textContent='Trop de tentatives, réessayez dans quelques minutes.';
+    else if(s===503)lgm.textContent='Aucun mot de passe n’est configuré sur le serveur (variable ADMIN_PASSWORD).';
+    else lgm.textContent='Serveur injoignable.';
+  });
+}
+document.getElementById('lgok').addEventListener('click',lgSubmit);
+lgp.addEventListener('keydown',function(e){if(e.key==='Enter')lgSubmit();});
+
+/* ---------- sons ---------- */
+var AC=null, muted=false;
+try{muted=localStorage.getItem('pand-mute')==='1';}catch(e){}
+function actx(){
+  try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC;}catch(e){return null;}
+}
+function tone(f,t0,d,v,type){
+  var c=actx();if(!c)return;
+  var o=c.createOscillator(),g=c.createGain(),t=c.currentTime+t0;
+  o.type=type||'sine';o.frequency.value=f;
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(v,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+0.05);
+}
+function sfx(k,x){
+  if(muted)return;
+  try{
+    if(k==='tick')tone(380+(x||0)*620,0,0.09,0.05,'triangle');
+    if(k==='draw'){[392,494,587,784,988].forEach(function(f,i){tone(f,i*0.09,1.1,0.07,'sine');});tone(98,0,1.6,0.12,'sine');}
+    if(k==='rev'){[262,330,392,523].forEach(function(f,i){tone(f,i*0.06,1.4,0.06,'triangle');});}
+    if(k==='start'){tone(98,0,3.2,0.16,'sine');tone(196,0,2.4,0.07,'sine');tone(294,0,1.8,0.04,'sine');}
+    if(k==='end'){tone(82,0,4,0.2,'sine');tone(164,0,3,0.09,'sine');tone(246,0,2.2,0.05,'sine');tone(82,0.9,3.4,0.16,'sine');}
+    if(k==='kill'){tone(659,0,0.7,0.08,'sine');tone(988,0.1,0.9,0.07,'sine');}
+    if(k==='dead'){tone(330,0,0.5,0.08,'triangle');tone(220,0.18,0.7,0.08,'triangle');tone(147,0.4,1,0.08,'triangle');}
+    if(k==='click')tone(700,0,0.06,0.04,'sine');
+  }catch(e){}
+}
+var sndBtn=document.getElementById('snd');
+function paintSnd(){sndBtn.textContent=muted?'♪ Son coupé':'♪ Son';}
+sndBtn.addEventListener('click',function(){muted=!muted;try{localStorage.setItem('pand-mute',muted?'1':'0');}catch(e){}paintSnd();if(!muted)sfx('click');});
+paintSnd();
+
+/* ---------- interface ---------- */
+var page='tirage', sel=TEAMS[0].id, armed=null, pending=false, justChosen=null;
+var gonged={};
+function readHash(){var h=(location.hash||'').replace('#','');if(h==='tirage'||h==='points'||h==='classement'||h==='equipes')page=h;}
+readHash();
+window.addEventListener('hashchange',function(){readHash();render();});
+function go(p){if(location.hash==='#'+p){page=p;render();}else location.hash=p;}
+
+var toastT=null;
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show');},3200);}
+function fmtD(ts){try{return new Date(ts).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return '';}}
+function sgn(n){return (n>0?'+':n<0?'−':'')+Math.abs(n);}
+
+function head(){
+  var h='';
+  if(mode!=='live')h+='<span class="chip role">'+(netErr?'Serveur injoignable…':'Chargement…')+'</span>';
+  else if(isAdmin)h+='<span class="chip role">Mode Ministère</span>';
+  else h+='<span class="chip role">Mode consultation</span>';
+  if(mode==='live'&&netErr)h+='<span class="chip">Connexion perdue, données peut-être anciennes</span>';
+  if(mode==='live'&&!persistent)h+='<span class="chip" style="border-color:var(--bad);color:var(--bad)">Aucun volume : données non sauvegardées</span>';
+  TEAMS.forEach(function(t){
+    var f=fight(t.id);
+    if(f.status==='running'&&f.end){
+      h+='<span class="chip live" role="button" tabindex="0" data-act="goteam" data-t="'+t.id+'" data-end="'+f.end+'" data-tot="'+(f.end-f.start)+'" style="--c:'+t.h.c+'"><b>'+esc(t.h.n)+' '+ROM[t.i-1]+'</b><span class="tm">--:--</span></span>';
+    }
+  });
+  document.getElementById('status').innerHTML=h;
+  Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){b.classList.toggle('on',b.getAttribute('data-p')===page);b.setAttribute('aria-current',b.getAttribute('data-p')===page?'page':'false');});
+}
+function picker(){
+  return '<div class="picker">'+HOUSES.map(function(h){
+    return '<div class="pk-h" style="--c:'+h.c+'"><div class="pk-t">'+h.s+' '+esc(h.n)+'</div>'+TEAMS.filter(function(t){return t.h===h;}).map(function(t){
+      var f=fight(t.id);
+      return '<button class="pk '+f.status+(t.id===sel?' on':'')+'" data-act="pick" data-t="'+t.id+'" aria-pressed="'+(t.id===sel)+'"><span class="dot"></span>'+esc(tname(t))+(f.n?'<small>N°'+f.n+'</small>':'')+'</button>';
+    }).join('')+'</div>';
+  }).join('')+'</div>';
+}
+
+/* --- page Tirage & combat --- */
 var stageNum=null, seenRev={};
-function stage(t,f){var shown=drawing?stageNum:(f.n||'?');var cls='orb'+(drawing?' spin':(f.n?'':' idle'));var lab=drawing?'Le sort est jeté…':(f.n?(f.status==='running'?'Combat en cours':f.status==='done'?'Combat terminé':'Numéro tiré'):'En attente du tirage');var h='<section class="panel stage" style="--c:'+t.h.c+'"><canvas class="burst" id="burst" aria-hidden="true"></canvas><div class="stage-l">'+t.h.s+' '+esc(t.h.n)+' · '+esc(tname(t))+'</div><div class="stage-s">'+lab+'</div><div class="'+cls+'" id="orb"><div class="orb-in"><span class="orbn" id="orbn" aria-live="polite">'+shown+'</span></div><div class="shock"></div></div>';if(isAdmin&&!f.n)h+='<button class="gold draw-btn" data-act="draw"'+(drawing?' disabled':'')+'>✦ Tirage au sort</button><p class="hint" style="margin:10px 0 0">ou touchez un numéro ci-dessous pour le choisir</p>';h+='</section>';return h;}
-function pageTirage(){var t=T(sel),f=fight(sel),taken=takenMap();var h='<section class="panel"><h2 class="sec">Équipe engagée</h2>'+picker()+'</section>';h+=stage(t,f);h+='<section class="panel"><div class="sec-row"><h2 class="sec">Les 30 numéros</h2></div><p class="hint">Chaque équipe choisit un numéro, ou le sort du tirage au sort. Un numéro ne sert qu’à une seule équipe.</p><div class="nums">';cfg.numbers.forEach(function(x){var o=taken[x.n],ot=o?T(o):null;var cls='num'+(o?' taken':'')+(f.n===x.n?' mine':'')+(hl===x.n?' hl':'');h+='<button class="'+cls+'" data-act="num" data-n="'+x.n+'"'+(isAdmin?'':' disabled')+(ot?' style="--c:'+ot.h.c+'"':'')+' aria-label="Numéro '+x.n+(ot?', pris par '+esc(ot.h.n+' '+ROM[ot.i-1]):', libre')+'"><b>'+x.n+'</b><small>'+(ot?esc(ot.h.n+' '+ROM[ot.i-1]):'libre')+'</small></button>';});h+='</div></section>';h+='<section class="panel" style="--c:'+t.h.c+'"><div class="arena-h"><span class="sg">'+t.h.s+'</span><div><div class="an">'+esc(t.h.n)+' · '+esc(tname(t))+'</div><div class="meta" style="margin:0">'+(players(t).filter(Boolean).map(esc).join(', ')||'Joueurs non renseignés')+'</div></div></div>';if(!f.n){h+='<p class="empty">Cette équipe n’a pas encore de numéro. '+(isAdmin?'Touchez un numéro ci-dessus ou lancez le tirage au sort.':'')+'</p>';}else{var nd=numData(f.n),ms=nd?nd.mons:[];h+='<div class="arena-body'+(f.status==='running'&&f.end?'':' one')+'"><div'+(f.status==='running'&&f.end?'':' hidden')+'>';if(f.status==='running'&&f.end){h+='<div class="clock" data-end="'+f.end+'" data-tot="'+(f.end-f.start)+'" style="--c:'+t.h.c+'"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-t" cx="60" cy="60" r="54"/><circle class="ring-p" cx="60" cy="60" r="54"/></svg><div class="tm">--:--</div><div class="cl">temps restant</div></div>';}h+='</div><div><div class="mons">';if(f.rev){var sk=sel+'@'+f.n,seen=seenRev[sk],an=!seen||(Date.now()-seen<1800);if(!seen)seenRev[sk]=Date.now();ms.forEach(function(m,i){h+='<div class="mcard'+(an?' flip':'')+'" style="animation-delay:'+(i*0.4)+'s"><span class="mn">'+esc(m.name)+'</span><span class="mp">'+sgn(+m.pts||0)+' pts</span></div>';});if(!ms.length)h+='<p class="empty">Aucun monstre défini pour ce numéro.</p>'; }else{for(var q=0;q<Math.max(1,ms.length);q++)h+='<div class="mcard back" aria-label="Monstre mystère scellé">?</div>';}h+='</div></div></div>';if(isAdmin){h+='<div class="ctl">';if(f.status==='assigned'){if(!f.rev)h+='<button data-act="reveal">Révéler les monstres</button>';h+='<button class="go" data-act="launch">⚔ Lancer le combat ('+cfg.minutes+' min)</button>';}if(f.status==='running')h+='<button class="neg" data-act="finish">Terminer le combat</button>';if(f.status==='done')h+='<button data-act="gopoints">Saisir les points</button>';h+='<button class="ghost sm" data-act="reset">'+(armed===sel?'Confirmer la remise à zéro ?':'Réinitialiser l’équipe')+'</button></div>';}else if(f.status==='done'){h+='<div class="ctl"><button data-act="gopoints">Voir les points</button></div>';}}h+='</section>';if(isAdmin){h+='<section class="panel"><details class="bes"><summary>Bestiaire et réglages (Ministère)</summary><p class="hint">Chaque numéro est associé à un ou plusieurs monstres. Les noms actuels sont des placeholders.</p>';cfg.numbers.forEach(function(x,ni){h+='<div class="bn"><h4>Numéro '+x.n+'</h4>';x.mons.forEach(function(m,mi){h+='<div class="bm"><input type="text" id="bm-'+ni+'-'+mi+'-n" value="'+esc(m.name)+'" data-f="mname" data-ni="'+ni+'" data-mi="'+mi+'" aria-label="Nom du monstre"><input type="number" id="bm-'+ni+'-'+mi+'-p" value="'+(+m.pts||0)+'" data-f="mpts" data-ni="'+ni+'" data-mi="'+mi+'" aria-label="Points"><button class="ghost sm" data-act="delmon" data-ni="'+ni+'" data-mi="'+mi+'" aria-label="Retirer ce monstre">✕</button></div>';});h+='<button class="ghost sm" data-act="addmon" data-ni="'+ni+'">+ Monstre</button></div>';});h+='<div class="row"><button class="ghost sm" data-act="addnum">+ Ajouter un numéro</button><button class="ghost sm" data-act="delnum">Retirer le dernier numéro</button><label class="row" for="minutes">Durée du combat (min) <input type="number" id="minutes" min="1" max="60" value="'+cfg.minutes+'" data-f="minutes"></label></div></details></section>';}return h;}
-function pageEquipes(){var h='<p class="hint" style="text-align:center">Chaque équipe compte 4 joueurs et 2 remplaçants.'+(isAdmin?'':' Mode consultation : seul le Ministère modifie les équipes.')+'</p>';HOUSES.forEach(function(ho){h+='<section class="panel" style="--c:'+ho.c+'"><h2 class="sec" style="color:'+ho.c+'">'+ho.s+' '+esc(ho.n)+'</h2><div class="cols">';TEAMS.filter(function(t){return t.h===ho;}).forEach(function(t){var pl=players(t),nj=0,nr=0,i;for(i=0;i<4;i++)if(pl[i])nj++;for(i=4;i<6;i++)if(pl[i])nr++;h+='<div class="roster"><div class="sec-row"><div class="an" style="font-size:17px">'+esc(tname(t))+'</div><span class="chip">'+nj+'/4 joueurs · '+nr+'/2 remplaçants</span></div>';if(isAdmin)h+='<div class="plr"><input type="text" id="rt-'+t.id+'" value="'+esc(cfg.teams[t.id]&&cfg.teams[t.id].name||'')+'" placeholder="Nom de l’équipe" data-f="rtname" data-t="'+t.id+'" aria-label="Nom de l’équipe"></div>';for(i=0;i<6;i++){h+='<div class="plr"><span class="role-l'+(i>=4?' sub':'')+'">'+(i<4?'Joueur '+(i+1):'Remplaçant '+(i-3))+'</span><input type="text" id="r-'+t.id+'-'+i+'" value="'+esc(pl[i]||'')+'" placeholder="'+(i<4?'Nom du joueur':'Nom du remplaçant')+'" data-f="rname" data-t="'+t.id+'" data-i="'+i+'" aria-label="'+(i<4?'Joueur '+(i+1):'Remplaçant '+(i-3))+' de '+esc(ho.n)+' '+ROM[t.i-1]+'"'+(isAdmin?'':' disabled')+'></div>';}h+='</div>';});h+='</div></section>';});return h;}
-function pagePoints(){var t=T(sel),f=fight(sel),c=calc(sel),nd=f.n?numData(f.n):null;var h='<section class="panel"><h2 class="sec">Équipe</h2>'+picker()+'</section><section class="panel" style="--c:'+t.h.c+'"><div class="score"><div><div class="an" style="color:'+t.h.c+'">'+t.h.s+' '+esc(t.h.n)+' · '+esc(tname(t))+'</div><div class="meta" style="margin:0">'+(f.n?'Numéro '+f.n:'Pas de numéro')+'</div></div><div class="big" aria-label="Total">'+c.total+'</div></div><div class="bd" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><span class="chip">Monstres '+sgn(c.kills)+'</span><span class="chip">Pénalités '+(c.pen?'−'+c.pen:'0')+'</span><span class="chip">Ajustements '+(c.adj?sgn(c.adj):'0')+'</span></div></section>';if(!isAdmin)h+='<p class="hint" style="text-align:center">Mode consultation : seul le Ministère modifie les points.</p>';h+='<div class="cols"><section class="panel"><h2 class="sec">Monstres</h2>';if(!f.n)h+='<p class="empty">Aucun numéro n’a été tiré pour cette équipe.</p>';else if(!f.rev&&!isAdmin)h+='<p class="empty">Les monstres n’ont pas encore été révélés.</p>';else{(nd?nd.mons:[]).forEach(function(m){var ev=log.filter(function(e){return e.team===sel&&e.kind==='kill'&&e.key===m.k;})[0];h+='<div class="mrow'+(ev?' fallen':'')+'"><div><span class="mn">'+esc(m.name)+'</span><span class="mp">'+sgn(+m.pts||0)+'</span></div>';if(isAdmin)h+=ev?' <button class="ghost sm" data-act="unkill" data-id="'+esc(ev.id)+'">Annuler</button>':'<button class="go sm" data-act="kill" data-k="'+esc(m.k)+'">Tombé</button>';else h+='<span class="st '+(ev?'done':'')+'">'+(ev?'Tombé':'En vie')+'</span>';h+='</div>';});if(nd&&!nd.mons.length)h+='<p class="empty">Aucun monstre défini pour ce numéro.</p>';}h+='</section><section class="panel"><h2 class="sec">Joueurs</h2>';var pl=players(t);for(var i=0;i<4;i++){var dd=isDead(sel,i);h+='<div class="plr'+(dd?' deadp':'')+'"><input type="text" id="pn-'+i+'" value="'+esc(pl[i]||'')+'" placeholder="Joueur '+(i+1)+'" data-f="pname" data-i="'+i+'" aria-label="Nom du joueur '+(i+1)+'"'+(isAdmin?'':' disabled')+'><label class="skull"><input type="checkbox" id="pd-'+i+'" data-f="pdead" data-i="'+i+'"'+(dd?' checked':'')+(isAdmin?'':' disabled')+'> Mort −'+PEN+'</label></div>';}if(isAdmin)h+='<div class="tname row"><input type="text" id="tn" value="'+esc(cfg.teams[t.id]&&cfg.teams[t.id].name||'')+'" placeholder="Nom de l’équipe" data-f="tname" aria-label="Nom de l’équipe"></div>';h+='</section></div>';if(isAdmin){h+='<section class="panel"><h2 class="sec">Ajustement manuel</h2><p class="hint">Pour un bonus ou une sanction hors monstres. Le commentaire est obligatoire.</p><div class="row"><input type="number" id="adjv" min="1" value="5" aria-label="Nombre de points"><input type="text" id="adjc" placeholder="Commentaire" style="flex:1 1 220px" aria-label="Commentaire"><button class="go" data-act="adj" data-s="1">Ajouter</button><button class="neg" data-act="adj" data-s="-1">Retirer</button></div></section>';}var mine=log.filter(function(e){return e.team===sel;});h+='<section class="panel"><h2 class="sec">Journal</h2>';if(!mine.length&&!c.dead)h+='<p class="empty">Aucun point enregistré pour cette équipe.</p>';else{h+='<ul class="log">';if(c.dead)h+='<li><div><div>'+c.dead+' joueur'+(c.dead>1?'s':'')+' mort'+(c.dead>1?'s':'')+'</div><div class="d">Pénalité automatique</div></div><span class="v neg-t">−'+c.pen+'</span></li>';mine.forEach(function(e){h+='<li><div><div>'+esc(e.kind==='kill'?'Monstre tombé : '+e.label:e.label)+'</div><div class="d">'+fmtD(e.ts)+'</div></div><span class="v '+((+e.pts||0)<0?'neg-t':'pos')+'">'+sgn(+e.pts||0)+'</span>'+(isAdmin?' <button class="ghost sm" data-act="unkill" data-id="'+esc(e.id)+'" aria-label="Supprimer cette ligne">✕</button>':'')+'</li>';});h+='</ul>';}h+='</section>';return h;}
-function ranking(){var rows=TEAMS.map(function(t){var c=calc(t.id);c.t=t;c.f=fight(t.id);return c;});rows.sort(function(a,b){return b.total-a.total||a.dead-b.dead||(a.t.id<b.t.id?-1:1);});var r=0,prev=null;rows.forEach(function(x,i){var key=x.total+'|'+x.dead;if(key!==prev){r=i+1;prev=key;}x.rank=r;});var hs=HOUSES.map(function(h){var ts=rows.filter(function(x){return x.t.h===h;});return {h:h,total:ts.reduce(function(s,x){return s+x.total;},0),dead:ts.reduce(function(s,x){return s+x.dead;},0),ts:ts};});hs.sort(function(a,b){return b.total-a.total||a.dead-b.dead||(a.h.id<b.h.id?-1:1);});r=0;prev=null;hs.forEach(function(x,i){var key=x.total+'|'+x.dead;if(key!==prev){r=i+1;prev=key;}x.rank=r;});return {rows:rows,hs:hs};}
-function pageClassement(){var R=ranking(),max=Math.max(1,R.hs.reduce(function(m,x){return Math.max(m,x.total);},0));var h='<section><div class="sec-row"><h2 class="sec">Classement des maisons</h2><span class="meta" style="margin:0">Total des deux équipes, mis à jour en direct</span></div><div class="houses">';R.hs.forEach(function(x){h+='<div class="hcard" style="--c:'+x.h.c+';--g:'+(5-x.rank)*2+'"><div class="rk">'+x.rank+'</div><div class="sg">'+x.h.s+'</div><h3>'+esc(x.h.n)+'</h3><div class="tot">'+x.total+'<small>pts</small></div><div class="hbar"><i style="width:'+Math.max(0,Math.round(100*x.total/max))+'%"></i></div>';x.ts.forEach(function(y){h+='<div class="sub2">'+esc(tname(y.t))+' : '+y.total+' pts</div>';});h+='</div>';});h+='</div></section><section class="panel"><h2 class="sec">Classement des équipes</h2><div class="tw"><table><thead><tr><th>Rang</th><th>Équipe</th><th class="r">Monstres</th><th class="r">Ajust.</th><th class="r">Morts</th><th class="r">Pénalités</th><th class="r">Total</th></tr></thead><tbody>';R.rows.forEach(function(x){var stt=x.f.status==='running'?'<small class="st running">En combat</small>':x.f.status==='done'?'<small class="st done">Combat terminé</small>':x.f.n?'<small class="st">Numéro '+x.f.n+'</small>':'<small class="st">En attente</small>';h+='<tr class="'+(x.rank===1&&x.total>0?'first':'')+'"><td class="pl">'+x.rank+'</td><td><div class="tn" style="--c:'+x.t.h.c+'"><span class="sg">'+x.t.h.s+'</span><div><span class="nm">'+esc(x.t.h.n)+' · '+esc(tname(x.t))+'</span>'+stt+'</div></div></td><td class="r">'+sgn(x.kills)+' <span class="st">('+x.nk+')</span></td><td class="r">'+(x.adj?sgn(x.adj):'0')+'</td><td class="r">'+x.dead+'</td><td class="r">'+(x.pen?'−'+x.pen:'0')+'</td><td class="r tot-c">'+x.total+'</td></tr>';});h+='</tbody></table></div><p class="hint" style="margin:10px 0 0">À égalité de points, l’équipe qui compte le moins de morts passe devant.</p></section>';return h;}
-function typing(){var a=document.activeElement;return a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&app.contains(a);}var rt=null;
-function render(){clearTimeout(rt);rt=setTimeout(doRender,30);}function doRender(){if(typing()){pending=true;return;}pending=false;head();app.innerHTML=page==='points'?pagePoints():page==='classement'?pageClassement():page==='equipes'?pageEquipes():pageTirage();tick();}
-document.addEventListener('focusout',function(){setTimeout(function(){if(pending&&!typing())doRender();},90);});Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){b.addEventListener('click',function(){sfx('click');go(b.getAttribute('data-p'));});});
-function assign(n,tid){tid=tid||sel;var f=fight(tid);if(f.status==='running'){toast('Le combat de cette équipe est en cours.');return;}var o=takenMap()[n];if(o&&o!==tid){toast('Le numéro '+n+' est déjà pris par '+T(o).h.n+' '+ROM[T(o).i-1]+'.');return;}patch('pand/state',{fights:(function(){var x={};x[tid]={n:n,rev:false,status:'assigned',start:null,end:null};return x;})()});}
-function randInt(m){try{var a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%m;}catch(e){return Math.floor(Math.random()*m);}}
-function randomDraw(){var tid=sel,f=fight(tid);if(drawing)return;if(f.status==='running'){toast('Le combat de cette équipe est en cours.');return;}var taken=takenMap(),free=cfg.numbers.map(function(x){return x.n;}).filter(function(n){return !taken[n];});if(!free.length){toast('Plus aucun numéro libre.');return;}var pick=free[randInt(free.length)],i=0,steps=28,col=T(tid).h.c;drawing=true;stageNum=free[randInt(free.length)];render();function step(){var last=i>=steps,n=last?pick:free[randInt(free.length)];if(!last&&free.length>1)while(n===stageNum)n=free[randInt(free.length)];stageNum=n;hl=n;var el=document.getElementById('orbn');if(el)el.textContent=n;paintHl();if(!last){sfx('tick',i/steps);i++;setTimeout(step,50+240*Math.pow(i/steps,3));}else{var orb=document.getElementById('orb');if(orb){orb.classList.remove('spin');orb.classList.add('land');}sfx('draw');burst(col);setTimeout(function(){drawing=false;hl=null;stageNum=null;assign(pick,tid);},1300);}}setTimeout(step,120);}
-function burst(col){var cv=document.getElementById('burst');if(!cv)return;var r=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1;cv.width=r.width*dpr;cv.height=r.height*dpr;var cx=cv.getContext('2d'),ob=document.getElementById('orb').getBoundingClientRect();var ox=(ob.left+ob.width/2-r.left)*dpr,oy=(ob.top+ob.height/2-r.top)*dpr,ps=[],i;for(i=0;i<90;i++){var a=Math.random()*6.283,v=(2+Math.random()*7)*dpr;ps.push({x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:(1+Math.random()*2.6)*dpr,c:i%3===0?'#e8d49a':col});}var t0=performance.now();(function f(now){var c2=document.getElementById('burst');if(c2!==cv)return;var k=(now-t0)/1400;cx.clearRect(0,0,cv.width,cv.height);if(k>=1)return;ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vx*=.97;p.vy=p.vy*.97+.12*dpr;cx.globalAlpha=1-k;cx.fillStyle=p.c;cx.shadowColor=p.c;cx.shadowBlur=10*dpr;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fill();});requestAnimationFrame(f);})(t0);}
-function paintHl(){Array.prototype.forEach.call(document.querySelectorAll('.num'),function(b){b.classList.toggle('hl',+b.getAttribute('data-n')===hl);});}
+function stage(t,f){
+  var chosen=!!(justChosen&&justChosen.tid===t.id&&Date.now()-justChosen.t<1600);
+  var cls='orb'+(f.n?(chosen?' land':''):' idle');
+  var lab=f.n?(f.status==='running'?'Combat en cours':f.status==='done'?'Combat terminé':'Numéro choisi'):'En attente du choix de l’équipe';
+  var h='<section class="panel stage" style="--c:'+t.h.c+'"><canvas class="burst" id="burst" aria-hidden="true"></canvas>';
+  h+='<div class="stage-l">'+t.h.s+' '+esc(t.h.n)+' · '+esc(tname(t))+'</div><div class="stage-s">'+lab+'</div>';
+  h+='<div class="'+cls+'" id="orb"><div class="orb-in"><span class="orbn" id="orbn" aria-live="polite">'+(f.n||'?')+'</span></div><div class="shock"></div></div>';
+  if(!f.n)h+='<p class="hint" style="margin:6px 0 0">'+(isAdmin?'Touchez le numéro choisi par l’équipe dans la grille ci-dessous.':'L’équipe choisit son numéro, les monstres se dévoilent ensuite.')+'</p>';
+  h+='</section>';
+  return h;
+}
+function pageTirage(){
+  var t=T(sel), f=fight(sel), taken=takenMap();
+  var h='<section class="panel"><h2 class="sec">Équipe engagée</h2>'+picker()+'</section>';
+  h+=stage(t,f);
+  h+='<section class="panel"><div class="sec-row"><h2 class="sec">Choix du numéro</h2></div>';
+  h+='<p class="hint">Chaque équipe choisit son numéro. Un numéro ne sert qu’à une seule équipe, et le choix dévoile les monstres.</p><div class="nums">';
+  cfg.numbers.forEach(function(x){
+    var o=taken[x.n], ot=o?T(o):null;
+    var cls='num'+(o?' taken':'')+(f.n===x.n?' mine':'');
+    h+='<button class="'+cls+'" data-act="num" data-n="'+x.n+'"'+(isAdmin?'':' disabled')+(ot?' style="--c:'+ot.h.c+'"':'')+' aria-label="Numéro '+x.n+(ot?', pris par '+esc(ot.h.n+' '+ROM[ot.i-1]):', libre')+'"><b>'+x.n+'</b><small>'+(ot?esc(ot.h.n+' '+ROM[ot.i-1]):'libre')+'</small></button>';
+  });
+  h+='</div></section>';
+  h+='<section class="panel" style="--c:'+t.h.c+'"><div class="arena-h"><span class="sg">'+t.h.s+'</span><div><div class="an">'+esc(t.h.n)+' · '+esc(tname(t))+'</div><div class="meta" style="margin:0">'+(players(t).filter(Boolean).map(esc).join(', ')||'Joueurs non renseignés')+'</div></div></div>';
+  if(!f.n){
+    h+='<p class="empty">Cette équipe n’a pas encore choisi de numéro.'+(isAdmin?' Touchez son numéro dans la grille.':'')+'</p>';
+  }else{
+    var nd=numData(f.n), ms=nd?nd.mons:[];
+    h+='<div class="arena-body'+(f.status==='running'&&f.end?'':' one')+'"><div'+(f.status==='running'&&f.end?'':' hidden')+'>';
+    if(f.status==='running'&&f.end){
+      h+='<div class="clock" data-end="'+f.end+'" data-tot="'+(f.end-f.start)+'" style="--c:'+t.h.c+'"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-t" cx="60" cy="60" r="54"/><circle class="ring-p" cx="60" cy="60" r="54"/></svg><div class="tm">--:--</div><div class="cl">temps restant</div></div>';
+    }else{
+    }
+    h+='</div><div><div class="mons">';
+    if(f.rev){
+      var sk=sel+'@'+f.n, seen=seenRev[sk], an=!seen||(Date.now()-seen<1800);
+      if(!seen)seenRev[sk]=Date.now();
+      ms.forEach(function(m,i){h+='<div class="mcard'+(an?' flip':'')+'" style="animation-delay:'+(i*0.4)+'s"><span class="mn">'+esc(m.name)+'</span><span class="mp">'+sgn(+m.pts||0)+' pts</span></div>';});
+      if(!ms.length)h+='<p class="empty">Aucun monstre défini pour ce numéro.</p>';
+    }else{
+      for(var q=0;q<Math.max(1,ms.length);q++)h+='<div class="mcard back" aria-label="Monstre mystère scellé">?</div>';
+    }
+    h+='</div></div></div>';
+    if(isAdmin){
+      h+='<div class="ctl">';
+      if(f.status==='assigned'){
+        if(!f.rev)h+='<button data-act="reveal">Révéler les monstres</button>';
+        h+='<button class="go" data-act="launch">⚔ Lancer le combat ('+cfg.minutes+' min)</button>';
+      }
+      if(f.status==='running')h+='<button class="neg" data-act="finish">Terminer le combat</button>';
+      if(f.status==='done')h+='<button data-act="gopoints">Saisir les points</button>';
+      h+='<button class="ghost sm" data-act="reset">'+(armed===sel?'Confirmer la remise à zéro ?':'Réinitialiser l’équipe')+'</button></div>';
+    }else if(f.status==='done'){
+      h+='<div class="ctl"><button data-act="gopoints">Voir les points</button></div>';
+    }
+  }
+  h+='</section>';
+  if(isAdmin){
+    h+='<section class="panel"><details class="bes"><summary>Bestiaire et réglages (Ministère)</summary>';
+    h+='<p class="hint">Chaque numéro est associé à un ou plusieurs monstres. Les noms actuels sont des placeholders.</p>';
+    cfg.numbers.forEach(function(x,ni){
+      h+='<div class="bn"><h4>Numéro '+x.n+'</h4>';
+      x.mons.forEach(function(m,mi){
+        h+='<div class="bm"><input type="text" id="bm-'+ni+'-'+mi+'-n" value="'+esc(m.name)+'" data-f="mname" data-ni="'+ni+'" data-mi="'+mi+'" aria-label="Nom du monstre"><input type="number" id="bm-'+ni+'-'+mi+'-p" value="'+(+m.pts||0)+'" data-f="mpts" data-ni="'+ni+'" data-mi="'+mi+'" aria-label="Points"><button class="ghost sm" data-act="delmon" data-ni="'+ni+'" data-mi="'+mi+'" aria-label="Retirer ce monstre">✕</button></div>';
+      });
+      h+='<button class="ghost sm" data-act="addmon" data-ni="'+ni+'">+ Monstre</button></div>';
+    });
+    h+='<div class="row"><button class="ghost sm" data-act="addnum">+ Ajouter un numéro</button><button class="ghost sm" data-act="delnum">Retirer le dernier numéro</button><label class="row" for="minutes">Durée du combat (min) <input type="number" id="minutes" min="1" max="60" value="'+cfg.minutes+'" data-f="minutes"></label></div></details></section>';
+  }
+  return h;
+}
+
+/* --- page Équipes --- */
+function pageEquipes(){
+  var h='<p class="hint" style="text-align:center">Chaque équipe compte 4 joueurs et 2 remplaçants.'+(isAdmin?'':' Mode consultation : seul le Ministère modifie les équipes.')+'</p>';
+  HOUSES.forEach(function(ho){
+    h+='<section class="panel" style="--c:'+ho.c+'"><h2 class="sec" style="color:'+ho.c+'">'+ho.s+' '+esc(ho.n)+'</h2><div class="cols">';
+    TEAMS.filter(function(t){return t.h===ho;}).forEach(function(t){
+      var pl=players(t), nj=0, nr=0, i;
+      for(i=0;i<4;i++)if(pl[i])nj++;
+      for(i=4;i<6;i++)if(pl[i])nr++;
+      h+='<div class="roster"><div class="sec-row"><div class="an" style="font-size:17px">'+esc(tname(t))+'</div><span class="chip">'+nj+'/4 joueurs · '+nr+'/2 remplaçants</span></div>';
+      if(isAdmin)h+='<div class="plr"><input type="text" id="rt-'+t.id+'" value="'+esc(cfg.teams[t.id]&&cfg.teams[t.id].name||'')+'" placeholder="Nom de l’équipe" data-f="rtname" data-t="'+t.id+'" aria-label="Nom de l’équipe"></div>';
+      for(i=0;i<6;i++){
+        h+='<div class="plr">'+(i===4?'':'')+'<span class="role-l'+(i>=4?' sub':'')+'">'+(i<4?'Joueur '+(i+1):'Remplaçant '+(i-3))+'</span><input type="text" id="r-'+t.id+'-'+i+'" value="'+esc(pl[i]||'')+'" placeholder="'+(i<4?'Nom du joueur':'Nom du remplaçant')+'" data-f="rname" data-t="'+t.id+'" data-i="'+i+'" aria-label="'+(i<4?'Joueur '+(i+1):'Remplaçant '+(i-3))+' de '+esc(ho.n)+' '+ROM[t.i-1]+'"'+(isAdmin?'':' disabled')+'></div>';
+      }
+      h+='</div>';
+    });
+    h+='</div></section>';
+  });
+  return h;
+}
+
+/* --- page Points --- */
+function pagePoints(){
+  var t=T(sel), f=fight(sel), c=calc(sel), nd=f.n?numData(f.n):null;
+  var h='<section class="panel"><h2 class="sec">Équipe</h2>'+picker()+'</section>';
+  h+='<section class="panel" style="--c:'+t.h.c+'"><div class="score"><div><div class="an" style="color:'+t.h.c+'">'+t.h.s+' '+esc(t.h.n)+' · '+esc(tname(t))+'</div><div class="meta" style="margin:0">'+(f.n?'Numéro '+f.n:'Pas de numéro')+'</div></div><div class="big" aria-label="Total">'+c.total+'</div></div>';
+  h+='<div class="bd" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><span class="chip">Monstres '+sgn(c.kills)+'</span><span class="chip">Pénalités '+(c.pen?'−'+c.pen:'0')+'</span><span class="chip">Ajustements '+(c.adj?sgn(c.adj):'0')+'</span></div></section>';
+  if(!isAdmin)h+='<p class="hint" style="text-align:center">Mode consultation : seul le Ministère modifie les points.</p>';
+  h+='<div class="cols"><section class="panel"><h2 class="sec">Monstres</h2>';
+  if(!f.n)h+='<p class="empty">Aucun numéro n’a été tiré pour cette équipe.</p>';
+  else if(!f.rev&&!isAdmin)h+='<p class="empty">Les monstres n’ont pas encore été révélés.</p>';
+  else{
+    (nd?nd.mons:[]).forEach(function(m){
+      var ev=log.filter(function(e){return e.team===sel&&e.kind==='kill'&&e.key===m.k;})[0];
+      h+='<div class="mrow'+(ev?' fallen':'')+'"><div><span class="mn">'+esc(m.name)+'</span><span class="mp">'+sgn(+m.pts||0)+'</span></div>';
+      if(isAdmin)h+=ev?'<button class="ghost sm" data-act="unkill" data-id="'+esc(ev.id)+'">Annuler</button>':'<button class="go sm" data-act="kill" data-k="'+esc(m.k)+'">Tombé</button>';
+      else h+='<span class="st '+(ev?'done':'')+'">'+(ev?'Tombé':'En vie')+'</span>';
+      h+='</div>';
+    });
+    if(nd&&!nd.mons.length)h+='<p class="empty">Aucun monstre défini pour ce numéro.</p>';
+  }
+  h+='</section><section class="panel"><h2 class="sec">Joueurs</h2>';
+  var pl=players(t);
+  for(var i=0;i<4;i++){
+    var dd=isDead(sel,i);
+    h+='<div class="plr'+(dd?' deadp':'')+'"><input type="text" id="pn-'+i+'" value="'+esc(pl[i]||'')+'" placeholder="Joueur '+(i+1)+'" data-f="pname" data-i="'+i+'" aria-label="Nom du joueur '+(i+1)+'"'+(isAdmin?'':' disabled')+'><label class="skull"><input type="checkbox" id="pd-'+i+'" data-f="pdead" data-i="'+i+'"'+(dd?' checked':'')+(isAdmin?'':' disabled')+'> Mort −'+PEN+'</label></div>';
+  }
+  if(isAdmin)h+='<div class="tname row"><input type="text" id="tn" value="'+esc(cfg.teams[t.id]&&cfg.teams[t.id].name||'')+'" placeholder="Nom de l’équipe" data-f="tname" aria-label="Nom de l’équipe"></div>';
+  h+='</section></div>';
+  if(isAdmin){
+    h+='<section class="panel"><h2 class="sec">Ajustement manuel</h2><p class="hint">Pour un bonus ou une sanction hors monstres. Le commentaire est obligatoire.</p><div class="row"><input type="number" id="adjv" min="1" value="5" aria-label="Nombre de points"><input type="text" id="adjc" placeholder="Commentaire" style="flex:1 1 220px" aria-label="Commentaire"><button class="go" data-act="adj" data-s="1">Ajouter</button><button class="neg" data-act="adj" data-s="-1">Retirer</button></div></section>';
+  }
+  var mine=log.filter(function(e){return e.team===sel;});
+  h+='<section class="panel"><h2 class="sec">Journal</h2>';
+  if(!mine.length&&!c.dead)h+='<p class="empty">Aucun point enregistré pour cette équipe.</p>';
+  else{
+    h+='<ul class="log">';
+    if(c.dead)h+='<li><div><div>'+c.dead+' joueur'+(c.dead>1?'s':'')+' mort'+(c.dead>1?'s':'')+'</div><div class="d">Pénalité automatique</div></div><span class="v neg-t">−'+c.pen+'</span></li>';
+    mine.forEach(function(e){
+      h+='<li><div><div>'+esc(e.kind==='kill'?'Monstre tombé : '+e.label:e.label)+'</div><div class="d">'+fmtD(e.ts)+'</div></div><span class="v '+((+e.pts||0)<0?'neg-t':'pos')+'">'+sgn(+e.pts||0)+'</span>'+(isAdmin?'<button class="ghost sm" data-act="unkill" data-id="'+esc(e.id)+'" aria-label="Supprimer cette ligne">✕</button>':'')+'</li>';
+    });
+    h+='</ul>';
+  }
+  h+='</section>';
+  return h;
+}
+
+/* --- page Classement --- */
+function ranking(){
+  var rows=TEAMS.map(function(t){var c=calc(t.id);c.t=t;c.f=fight(t.id);return c;});
+  rows.sort(function(a,b){return b.total-a.total||a.dead-b.dead||(a.t.id<b.t.id?-1:1);});
+  var r=0,prev=null;
+  rows.forEach(function(x,i){var key=x.total+'|'+x.dead;if(key!==prev){r=i+1;prev=key;}x.rank=r;});
+  var hs=HOUSES.map(function(h){
+    var ts=rows.filter(function(x){return x.t.h===h;});
+    return {h:h,total:ts.reduce(function(s,x){return s+x.total;},0),dead:ts.reduce(function(s,x){return s+x.dead;},0),ts:ts};
+  });
+  hs.sort(function(a,b){return b.total-a.total||a.dead-b.dead||(a.h.id<b.h.id?-1:1);});
+  r=0;prev=null;
+  hs.forEach(function(x,i){var key=x.total+'|'+x.dead;if(key!==prev){r=i+1;prev=key;}x.rank=r;});
+  return {rows:rows,hs:hs};
+}
+function pageClassement(){
+  var R=ranking(), max=Math.max(1,R.hs.reduce(function(m,x){return Math.max(m,x.total);},0));
+  var h='<section><div class="sec-row"><h2 class="sec">Classement des maisons</h2><span class="meta" style="margin:0">Total des deux équipes, mis à jour en direct</span></div><div class="houses">';
+  R.hs.forEach(function(x){
+    h+='<div class="hcard" style="--c:'+x.h.c+';--g:'+(5-x.rank)*2+'"><div class="rk">'+x.rank+'</div><div class="sg">'+x.h.s+'</div><h3>'+esc(x.h.n)+'</h3><div class="tot">'+x.total+'<small>pts</small></div><div class="hbar"><i style="width:'+Math.max(0,Math.round(100*x.total/max))+'%"></i></div>';
+    x.ts.forEach(function(y){h+='<div class="sub2">'+esc(tname(y.t))+' : '+y.total+' pts</div>';});
+    h+='</div>';
+  });
+  h+='</div></section><section class="panel"><h2 class="sec">Classement des équipes</h2><div class="tw"><table><thead><tr><th>Rang</th><th>Équipe</th><th class="r">Monstres</th><th class="r">Ajust.</th><th class="r">Morts</th><th class="r">Pénalités</th><th class="r">Total</th></tr></thead><tbody>';
+  R.rows.forEach(function(x){
+    var stt=x.f.status==='running'?'<small class="st running">En combat</small>':x.f.status==='done'?'<small class="st done">Combat terminé</small>':x.f.n?'<small class="st">Numéro '+x.f.n+'</small>':'<small class="st">En attente</small>';
+    h+='<tr class="'+(x.rank===1&&x.total>0?'first':'')+'"><td class="pl">'+x.rank+'</td><td><div class="tn" style="--c:'+x.t.h.c+'"><span class="sg">'+x.t.h.s+'</span><div><span class="nm">'+esc(x.t.h.n)+' · '+esc(tname(x.t))+'</span>'+stt+'</div></div></td><td class="r">'+sgn(x.kills)+' <span class="st">('+x.nk+')</span></td><td class="r">'+(x.adj?sgn(x.adj):'0')+'</td><td class="r">'+x.dead+'</td><td class="r">'+(x.pen?'−'+x.pen:'0')+'</td><td class="r tot-c">'+x.total+'</td></tr>';
+  });
+  h+='</tbody></table></div><p class="hint" style="margin:10px 0 0">À égalité de points, l’équipe qui compte le moins de morts passe devant.</p></section>';
+  return h;
+}
+
+function typing(){var a=document.activeElement;return a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&app.contains(a);}
+var rt=null;
+function render(){clearTimeout(rt);rt=setTimeout(doRender,30);}
+function doRender(){
+  if(typing()){pending=true;return;}
+  pending=false;
+  head();
+  app.innerHTML=page==='points'?pagePoints():page==='classement'?pageClassement():page==='equipes'?pageEquipes():pageTirage();
+  tick();
+  if(justChosen&&!justChosen.done&&page==='tirage'&&document.getElementById('orb')){
+    justChosen.done=true;sfx('draw');burst(T(justChosen.tid).h.c);
+  }
+}
+document.addEventListener('focusout',function(){setTimeout(function(){if(pending&&!typing())doRender();},90);});
+Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){b.addEventListener('click',function(){sfx('click');go(b.getAttribute('data-p'));});});
+
+/* ---------- actions ---------- */
+function assign(n,tid){
+  tid=tid||sel;
+  var f=fight(tid);
+  if(f.status==='running'){toast('Le combat de cette équipe est en cours.');return;}
+  var o=takenMap()[n];
+  if(o&&o!==tid){toast('Le numéro '+n+' est déjà pris par '+T(o).h.n+' '+ROM[T(o).i-1]+'.');return;}
+  justChosen={tid:tid,t:Date.now(),done:false};
+  patch('pand/state',{fights:(function(){var x={};x[tid]={n:n,rev:false,status:'assigned',start:null,end:null};return x;})()});
+  setTimeout(function(){
+    var g=fight(tid);
+    if(g.n===n&&!g.rev&&g.status==='assigned'){sfx('rev');var y={};y[tid]={rev:true};patch('pand/state',{fights:y});}
+  },1700);
+}
+function burst(col){
+  var cv=document.getElementById('burst');if(!cv)return;
+  var r=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+  cv.width=r.width*dpr;cv.height=r.height*dpr;
+  var cx=cv.getContext('2d'),ob=document.getElementById('orb').getBoundingClientRect();
+  var ox=(ob.left+ob.width/2-r.left)*dpr, oy=(ob.top+ob.height/2-r.top)*dpr, ps=[],i;
+  for(i=0;i<90;i++){var a=Math.random()*6.283,v=(2+Math.random()*7)*dpr;ps.push({x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,r:(1+Math.random()*2.6)*dpr,c:i%3===0?'#e8d49a':col});}
+  var t0=performance.now();
+  (function f(now){
+    var c2=document.getElementById('burst');if(c2!==cv)return;
+    var k=(now-t0)/1400;cx.clearRect(0,0,cv.width,cv.height);
+    if(k>=1)return;
+    ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vx*=.97;p.vy=p.vy*.97+.12*dpr;cx.globalAlpha=1-k;cx.fillStyle=p.c;cx.shadowColor=p.c;cx.shadowBlur=10*dpr;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fill();});
+    requestAnimationFrame(f);
+  })(t0);
+}
 function setFight(part){var x={};x[sel]=part;patch('pand/state',{fights:x});}
 function saveNumbers(nums){patch('pand/config',{numbers:nums});}
 function cloneNums(){return JSON.parse(JSON.stringify(cfg.numbers));}
-app.addEventListener('click',function(e){var b=e.target.closest('[data-act]');if(!b||b.disabled)return;var a=b.getAttribute('data-act');if(a==='pick'){sel=b.getAttribute('data-t');armed=null;render();return;}if(a==='goteam'){sel=b.getAttribute('data-t');go('tirage');return;}if(!isAdmin&&a!=='gopoints')return;if(a==='num'){sfx('click');assign(+b.getAttribute('data-n'));}else if(a==='draw')randomDraw();else if(a==='reveal'){sfx('rev');setFight({rev:true});}else if(a==='launch'){var s=nowS();sfx('start');setFight({status:'running',rev:true,start:s,end:s+cfg.minutes*60000});}else if(a==='finish')setFight({status:'done'});else if(a==='gopoints')go('points');else if(a==='reset'){if(armed===sel){armed=null;setFight({n:null,rev:false,status:'idle',start:null,end:null});toast('Équipe réinitialisée.');}else{armed=sel;render();setTimeout(function(){if(armed===sel){armed=null;render();}},4000);}}else if(a==='kill'){var f=fight(sel),nd=numData(f.n),k=b.getAttribute('data-k'),m=nd&&nd.mons.filter(function(x){return x.k===k;})[0];if(!m)return;if(log.some(function(x){return x.team===sel&&x.kind==='kill'&&x.key===k;}))return;sfx('kill');addLog({team:sel,kind:'kill',key:k,label:m.name,pts:+m.pts||0});}else if(a==='unkill')delLog(b.getAttribute('data-id'));else if(a==='adj'){var v=Math.abs(parseInt(document.getElementById('adjv').value,10)||0),c=document.getElementById('adjc').value.trim();if(!v){toast('Indiquez un nombre de points.');return;}if(!c){toast('Ajoutez un commentaire.');return;}var sg=+b.getAttribute('data-s');addLog({team:sel,kind:'adj',label:c,pts:sg*v});sfx(sg>0?'kill':'dead');document.getElementById('adjc').value='';}else if(a==='addmon'){var n=cloneNums(),i=+b.getAttribute('data-ni');n[i].mons.push({k:'m'+Date.now().toString(36),name:'Nouveau monstre',pts:10});saveNumbers(n);}else if(a==='delmon'){var n2=cloneNums();n2[+b.getAttribute('data-ni')].mons.splice(+b.getAttribute('data-mi'),1);saveNumbers(n2);}else if(a==='addnum'){var n3=cloneNums(),nn=n3.reduce(function(m,x){return Math.max(m,x.n);},0)+1;n3.push({n:nn,mons:[{k:'n'+nn+'m1',name:'Monstre mystère '+nn,pts:10}]});saveNumbers(n3);}else if(a==='delnum'){var n4=cloneNums();if(n4.length<=1)return;var last=n4[n4.length-1].n;if(takenMap()[last]){toast('Le numéro '+last+' est attribué à une équipe.');return;}n4.pop();saveNumbers(n4);}});
+
+app.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+  var a=b.getAttribute('data-act');
+  if(a==='pick'){sel=b.getAttribute('data-t');armed=null;render();return;}
+  if(a==='goteam'){sel=b.getAttribute('data-t');go('tirage');return;}
+  if(!isAdmin&&a!=='gopoints')return;
+  if(a==='num'){sfx('click');assign(+b.getAttribute('data-n'));}
+  else if(a==='reveal'){sfx('rev');setFight({rev:true});}
+  else if(a==='launch'){var s=nowS();sfx('start');setFight({status:'running',rev:true,start:s,end:s+cfg.minutes*60000});}
+  else if(a==='finish'){setFight({status:'done'});}
+  else if(a==='gopoints')go('points');
+  else if(a==='reset'){
+    if(armed===sel){armed=null;setFight({n:null,rev:false,status:'idle',start:null,end:null});toast('Équipe réinitialisée.');}
+    else{armed=sel;render();setTimeout(function(){if(armed===sel){armed=null;render();}},4000);}
+  }
+  else if(a==='kill'){
+    var f=fight(sel),nd=numData(f.n),k=b.getAttribute('data-k'),m=nd&&nd.mons.filter(function(x){return x.k===k;})[0];
+    if(!m)return;
+    if(log.some(function(x){return x.team===sel&&x.kind==='kill'&&x.key===k;}))return;
+    sfx('kill');addLog({team:sel,kind:'kill',key:k,label:m.name,pts:+m.pts||0});
+  }
+  else if(a==='unkill')delLog(b.getAttribute('data-id'));
+  else if(a==='adj'){
+    var v=Math.abs(parseInt(document.getElementById('adjv').value,10)||0), c=document.getElementById('adjc').value.trim();
+    if(!v){toast('Indiquez un nombre de points.');return;}
+    if(!c){toast('Ajoutez un commentaire.');return;}
+    var sg=+b.getAttribute('data-s');
+    addLog({team:sel,kind:'adj',label:c,pts:sg*v});sfx(sg>0?'kill':'dead');
+    document.getElementById('adjc').value='';
+  }
+  else if(a==='addmon'){var n=cloneNums(),i=+b.getAttribute('data-ni');n[i].mons.push({k:'m'+Date.now().toString(36),name:'Nouveau monstre',pts:10});saveNumbers(n);}
+  else if(a==='delmon'){var n2=cloneNums();n2[+b.getAttribute('data-ni')].mons.splice(+b.getAttribute('data-mi'),1);saveNumbers(n2);}
+  else if(a==='addnum'){var n3=cloneNums(),nn=n3.reduce(function(m,x){return Math.max(m,x.n);},0)+1;n3.push({n:nn,mons:[{k:'n'+nn+'m1',name:'Monstre mystère '+nn,pts:10}]});saveNumbers(n3);}
+  else if(a==='delnum'){
+    var n4=cloneNums();if(n4.length<=1)return;
+    var last=n4[n4.length-1].n;
+    if(takenMap()[last]){toast('Le numéro '+last+' est attribué à une équipe.');return;}
+    n4.pop();saveNumbers(n4);
+  }
+});
 app.addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.classList.contains('chip')&&e.target.getAttribute('data-act')){e.preventDefault();e.target.click();}});
 document.getElementById('status').addEventListener('click',function(e){var b=e.target.closest('[data-act]');if(b){sel=b.getAttribute('data-t');go('tirage');}});
 document.getElementById('status').addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute('data-act')){e.preventDefault();e.target.click();}});
-app.addEventListener('change',function(e){var el=e.target,f=el.getAttribute('data-f');if(!f||!isAdmin)return;if(f==='pname'||f==='rname'){var tid=f==='rname'?el.getAttribute('data-t'):sel;var pl=players(T(tid)).slice();while(pl.length<6)pl.push('');pl[+el.getAttribute('data-i')]=el.value.trim();var o={};o[tid]={players:pl};patch('pand/config',{teams:o});}else if(f==='rtname'){var o4={};o4[el.getAttribute('data-t')]={name:el.value.trim()};patch('pand/config',{teams:o4});}else if(f==='tname'){var o2={};o2[sel]={name:el.value.trim()};patch('pand/config',{teams:o2});}else if(f==='pdead'){var d={};d[el.getAttribute('data-i')]=el.checked;var o3={};o3[sel]=d;sfx(el.checked?'dead':'click');patch('pand/state',{dead:o3});}else if(f==='mname'||f==='mpts'){var n=cloneNums(),m=n[+el.getAttribute('data-ni')].mons[+el.getAttribute('data-mi')];if(f==='mname')m.name=el.value.trim()||'Monstre mystère';else m.pts=parseInt(el.value,10)||0;saveNumbers(n);}else if(f==='minutes'){patch('pand/config',{minutes:Math.max(1,Math.min(60,parseInt(el.value,10)||5))});}});
-function fmt(ms){var s=Math.ceil(Math.max(0,ms)/1000);return ('0'+Math.floor(s/60)).slice(-2)+':'+('0'+(s%60)).slice(-2);}function tick(){var now=nowS();Array.prototype.forEach.call(document.querySelectorAll('[data-end]'),function(el){var end=+el.getAttribute('data-end'),tot=+el.getAttribute('data-tot')||300000,left=end-now;var tm=el.querySelector('.tm');if(tm)tm.textContent=fmt(left);el.classList.toggle('over',left<=0);el.classList.toggle('low',left>0&&left<=30000);var ring=el.querySelector('.ring-p');if(ring)ring.style.strokeDashoffset=(339.29*(1-Math.max(0,Math.min(1,left/tot)))).toFixed(1);});TEAMS.forEach(function(t){var f=fight(t.id);if(f.status==='running'&&f.end&&now>=f.end){var key=t.id+'@'+f.start;if(!gonged[key]){gonged[key]=1;if(now-f.end<8000)sfx('end');}}});}setInterval(tick,250);
-(function(){var cv=document.getElementById('bg'),cx=cv.getContext('2d'),W,H,ps=[];var cols=['#a78bfa','#60a5fa','#e8d49a','#c084fc'];function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;}size();addEventListener('resize',size);for(var i=0;i<70;i++)ps.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.4,v:Math.random()*.00012+.00003,p:Math.random()*6.3,c:cols[i%4]});var still=matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;function draw(t){cx.clearRect(0,0,W,H);ps.forEach(function(p){if(!still){p.y-=p.v*16;if(p.y<-0.02){p.y=1.02;p.x=Math.random();}}var a=.25+.45*Math.abs(Math.sin(t/1400+p.p));cx.globalAlpha=a;cx.fillStyle=p.c;cx.shadowColor=p.c;cx.shadowBlur=8;cx.beginPath();cx.arc(p.x*W+Math.sin(t/3000+p.p)*14,p.y*H,p.r,0,6.3);cx.fill();});if(!still)requestAnimationFrame(draw);}requestAnimationFrame(draw);})();
-render();boot();
+app.addEventListener('change',function(e){
+  var el=e.target,f=el.getAttribute('data-f');if(!f||!isAdmin)return;
+  if(f==='pname'||f==='rname'){
+    var tid=f==='rname'?el.getAttribute('data-t'):sel;
+    var pl=players(T(tid)).slice();while(pl.length<6)pl.push('');pl[+el.getAttribute('data-i')]=el.value.trim();
+    var o={};o[tid]={players:pl};patch('pand/config',{teams:o});
+  }else if(f==='rtname'){
+    var o4={};o4[el.getAttribute('data-t')]={name:el.value.trim()};patch('pand/config',{teams:o4});
+  }else if(f==='tname'){
+    var o2={};o2[sel]={name:el.value.trim()};patch('pand/config',{teams:o2});
+  }else if(f==='pdead'){
+    var d={};d[el.getAttribute('data-i')]=el.checked;var o3={};o3[sel]=d;
+    sfx(el.checked?'dead':'click');patch('pand/state',{dead:o3});
+  }else if(f==='mname'||f==='mpts'){
+    var n=cloneNums(),m=n[+el.getAttribute('data-ni')].mons[+el.getAttribute('data-mi')];
+    if(f==='mname')m.name=el.value.trim()||'Monstre mystère';else m.pts=parseInt(el.value,10)||0;
+    saveNumbers(n);
+  }else if(f==='minutes'){
+    patch('pand/config',{minutes:Math.max(1,Math.min(60,parseInt(el.value,10)||5))});
+  }
+});
+
+/* ---------- minuteur ---------- */
+function fmt(ms){var s=Math.ceil(Math.max(0,ms)/1000);return ('0'+Math.floor(s/60)).slice(-2)+':'+('0'+(s%60)).slice(-2);}
+function tick(){
+  var now=nowS();
+  Array.prototype.forEach.call(document.querySelectorAll('[data-end]'),function(el){
+    var end=+el.getAttribute('data-end'),tot=+el.getAttribute('data-tot')||300000,left=end-now;
+    var tm=el.querySelector('.tm');if(tm)tm.textContent=fmt(left);
+    el.classList.toggle('over',left<=0);el.classList.toggle('low',left>0&&left<=30000);
+    var ring=el.querySelector('.ring-p');if(ring)ring.style.strokeDashoffset=(339.29*(1-Math.max(0,Math.min(1,left/tot)))).toFixed(1);
+  });
+  TEAMS.forEach(function(t){
+    var f=fight(t.id);
+    if(f.status==='running'&&f.end&&now>=f.end){
+      var key=t.id+'@'+f.start;
+      if(!gonged[key]){gonged[key]=1;if(now-f.end<8000)sfx('end');}
+    }
+  });
+}
+setInterval(tick,250);
+
+/* ---------- fond animé ---------- */
+(function(){
+  var cv=document.getElementById('bg'),cx=cv.getContext('2d'),W,H,ps=[];
+  var cols=['#a78bfa','#60a5fa','#e8d49a','#c084fc'];
+  function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;}
+  size();addEventListener('resize',size);
+  for(var i=0;i<70;i++)ps.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.4,v:Math.random()*.00012+.00003,p:Math.random()*6.3,c:cols[i%4]});
+  var still=matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(t){
+    cx.clearRect(0,0,W,H);
+    ps.forEach(function(p){
+      if(!still){p.y-=p.v*16;if(p.y<-0.02){p.y=1.02;p.x=Math.random();}}
+      var a=.25+.45*Math.abs(Math.sin(t/1400+p.p));
+      cx.globalAlpha=a;cx.fillStyle=p.c;cx.shadowColor=p.c;cx.shadowBlur=8;
+      cx.beginPath();cx.arc(p.x*W+Math.sin(t/3000+p.p)*14,p.y*H,p.r,0,6.3);cx.fill();
+    });
+    if(!still)requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+render();
+boot();
 })();
 </script>
 </body>
