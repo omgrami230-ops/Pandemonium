@@ -4,9 +4,22 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-// Dossier du site : public/ (normal) ou, à défaut, la racine du dépôt si index.html y a été mis à plat.
-const root = fs.existsSync(path.join(__dirname, 'public', 'index.html')) ? path.join(__dirname, 'public')
-  : fs.existsSync(path.join(__dirname, 'index.html')) ? __dirname : path.join(__dirname, 'public');
+// Dossier du site : on cherche index.html (public/ en priorité, sinon racine du dépôt, sinon un sous-dossier).
+function findRoot() {
+  const skip = new Set(['node_modules', '.git', 'data']);
+  const queue = [[__dirname, 0]];
+  const hits = [];
+  while (queue.length) {
+    const [dir, d] = queue.shift();
+    if (fs.existsSync(path.join(dir, 'index.html'))) hits.push(dir);
+    if (d >= 3) continue;
+    let items = [];
+    try { items = fs.readdirSync(dir, { withFileTypes: true }); } catch (e) {}
+    for (const it of items) if (it.isDirectory() && !skip.has(it.name)) queue.push([path.join(dir, it.name), d + 1]);
+  }
+  return hits.find(h => path.basename(h) === 'public') || hits[0] || path.join(__dirname, 'public');
+}
+const root = findRoot();
 const FLAT = root === __dirname;
 const DATA_DIR = process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || path.join(__dirname, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'pandemonium.json');
@@ -138,7 +151,7 @@ function serveStatic(req, res, p) {
   if (FLAT && /\.(js|json|txt)$/i.test(f)) { res.writeHead(404); return res.end('Introuvable'); }
   if (!f.startsWith(root + path.sep)) { res.writeHead(403); return res.end('Interdit'); }
   fs.stat(f, (err, st) => {
-    if (err || !st.isFile()) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); return res.end('Introuvable'); }
+    if (err || !st.isFile()) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); return res.end('Introuvable : fichier du site absent. Regardez les logs du déploiement sur Railway.'); }
     const ext = path.extname(f).toLowerCase();
     res.writeHead(200, { 'Content-Type': types[ext] || 'application/octet-stream', 'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=300', 'Content-Length': st.size });
     fs.createReadStream(f).pipe(res);
@@ -157,7 +170,7 @@ http.createServer((req, res) => {
 }).listen(process.env.PORT || 3000, '0.0.0.0', () => {
   console.log('Le Pandemonium en ligne. Données :', DATA_FILE);
   console.log('Dossier du site :', root, '| index.html présent :', fs.existsSync(path.join(root, 'index.html')));
-  if (!fs.existsSync(path.join(root, 'index.html'))) console.error('ERREUR : index.html introuvable. Contenu du dépôt :', fs.readdirSync(__dirname).join(', '));
+  if (!fs.existsSync(path.join(root, 'index.html'))) console.error('ERREUR : index.html introuvable nulle part. Contenu du dépôt :', fs.readdirSync(__dirname).join(', '));
   if (!ADMIN) console.warn('ATTENTION : ADMIN_PASSWORD n\'est pas défini, personne ne pourra modifier le tournoi.');
   if (!PERSISTENT) console.warn('ATTENTION : aucun volume Railway détecté, les données seront perdues à chaque déploiement.');
 });
